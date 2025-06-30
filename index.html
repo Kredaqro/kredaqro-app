@@ -2,21 +2,32 @@
 <html lang="az">
 <head>
   <meta charset="UTF-8">
-  <title>Kredaqro App</title>
+  <title>Kredaqro Yüklə</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>
-    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    var url = "https://kredaqro.az";
+    // İstifadəçinin cihaz tipini müəyyənləşdir
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    let redirectURL = "https://kredaqro.az"; // Default fallback
 
     if (/android/i.test(userAgent)) {
-      url = "https://play.google.com/store/apps/details?id=com.septen.kredaqroMobile";
-    } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
-      url = "https://apps.apple.com/az/app/kredaqro/id6471974162";
+      redirectURL = "https://play.google.com/store/apps/details?id=com.septen.kredaqroMobile";
+    } else if (/iPad|iPhone|iPod/i.test(userAgent)) {
+      redirectURL = "https://apps.apple.com/az/app/kredaqro/id6471974162";
     }
 
-    document.write('<meta http-equiv="refresh" content="0;URL=\'' + url + '\'">');
+    // Yönləndirməni et
+    window.onload = () => {
+      window.location.replace(redirectURL);
+    };
   </script>
 </head>
 <body>
-  <p>Yönləndirilirsiniz...</p>
+  <p>Yönləndirilirsiniz... Əgər avtomatik yönlənmədinizsə, <a id="fallbackLink" href="#">buraya klikləyin</a>.</p>
+
+  <script>
+    // Hər ehtimala qarşı keçid düyməsi də aktiv olsun
+    document.getElementById("fallbackLink").href = redirectURL;
+  </script>
 </body>
 </html>
